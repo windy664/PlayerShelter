@@ -1,0 +1,93 @@
+# 庄园概览页。这里展示庄主最常看的状态信息。
+title: "&0庄园概览"
+size: 54
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  summary:
+    index: 4
+    material: BOOK
+    name: "&e庄园概览"
+    lore:
+      - "&7庄主: &f{player}"
+      - "&7世界: &f{world}"
+      - "&7公告: &f{bulletin}"
+      - ""
+      - "&8这是一个纯概览页。"
+    action: ""
+
+  build:
+    index: 10
+    material: OAK_PLANKS
+    name: "&6建设状态"
+    lore:
+      - "&7等级: &f{level}/{max_level}"
+      - "&7地块: &f{plot_size} chunk"
+      - "&7面积: &f{area_chunks} chunk"
+      - "&7下级地块: &f{next_plot_size} chunk"
+      - "&7升级费用: &f{upgrade_cost}"
+    action: ""
+  members:
+    index: 13
+    material: PLAYER_HEAD
+    name: "&d成员状态"
+    lore:
+      - "&7访问模式: &f{visibility_label}"
+      - "&7管理员: &f{admins}/{admin_cap}"
+      - "&7共建: &f{trusted}/{trust_cap}"
+      - "&7访客/黑名单: &f{access}/{denied}"
+      - "&7点赞: &f{likes}"
+    action: ""
+  social:
+    index: 16
+    material: EMERALD
+    name: "&b社交概况"
+    lore:
+      - "&7留言: &f{board_messages}"
+      - "&7标签: &f{tags_count}"
+      - "&7保护开关: &f{flags_on}/{flags_total}"
+      - "&8社交内容在 gui/social。"
+    action: ""
+
+  home:
+    index: 30
+    material: COMPASS
+    name: "&a回家"
+    lore:
+      - "&7传送回庄园出生点。"
+    action: "command:ps home"
+  setspawn:
+    index: 31
+    material: RED_BED
+    name: "&b设置出生点"
+    lore:
+      - "&7把庄园出生点设到脚下。"
+    action: "command:ps setspawn"
+  upgrade:
+    index: 32
+    material: EXPERIENCE_BOTTLE
+    name: "&a升级扩建"
+    lore:
+      - "&7先查看升级收益预览。"
+    action: "menu:upgrade"
+  board:
+    index: 33
+    material: OAK_SIGN
+    name: "&f留言板"
+    lore:
+      - "&7查看访客留言。"
+    action: "menu:social"
+
+  back:
+    index: 49
+    material: ARROW
+    name: "&f返回"
+    lore:
+      - "&7回到控制器。"
+    action: "menu:shelter_controller"
+  close:
+    index: 53
+    material: BARRIER
+    name: "&c关闭"
+    lore: []
+    action: "close"

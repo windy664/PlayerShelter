@@ -1,0 +1,110 @@
+# 保护开关页。这里放庄园常用快捷开关；完整列表仍可用 /ps flags 查看。
+title: "&0保护开关"
+size: 54
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  summary:
+    index: 4
+    material: SHIELD
+    name: "&c保护开关"
+    lore:
+      - "&7当前开启: &f{flags_on}/{flags_total}"
+      - "&7左键查看当前全部 flag 文本列表。"
+      - "&8下面这些按钮可直接翻转常用规则。"
+    action: "command:ps flags"
+
+  pvp:
+    index: 19
+    material: DIAMOND_SWORD
+    name: "&cPvP &7[{pvp_state}]"
+    lore:
+      - "&7{pvp_label}"
+      - "&8点击后将变为 &f{pvp_next}"
+    action: "command:ps flag pvp {pvp_toggle}"
+  mob_spawning:
+    index: 20
+    material: SPAWNER
+    name: "&a刷怪 &7[{mob_spawning_state}]"
+    lore:
+      - "&7{mob_spawning_label}"
+      - "&8点击后将变为 &f{mob_spawning_next}"
+    action: "command:ps flag mob-spawning {mob_spawning_toggle}"
+  mob_griefing:
+    index: 21
+    material: CREEPER_HEAD
+    name: "&c破坏方块 &7[{mob_griefing_state}]"
+    lore:
+      - "&7{mob_griefing_label}"
+      - "&8点击后将变为 &f{mob_griefing_next}"
+    action: "command:ps flag mob-griefing {mob_griefing_toggle}"
+  explosions:
+    index: 22
+    material: TNT
+    name: "&c爆炸 &7[{explosions_state}]"
+    lore:
+      - "&7{explosions_label}"
+      - "&8点击后将变为 &f{explosions_next}"
+    action: "command:ps flag explosions {explosions_toggle}"
+  fire_spread:
+    index: 23
+    material: FIRE_CHARGE
+    name: "&6火焰 &7[{fire_spread_state}]"
+    lore:
+      - "&7{fire_spread_label}"
+      - "&8点击后将变为 &f{fire_spread_next}"
+    action: "command:ps flag fire-spread {fire_spread_toggle}"
+
+  damage_animals:
+    index: 28
+    material: BEEF
+    name: "&e动物伤害 &7[{damage_animals_state}]"
+    lore:
+      - "&7{damage_animals_label}"
+      - "&8点击后将变为 &f{damage_animals_next}"
+    action: "command:ps flag damage-animals {damage_animals_toggle}"
+  leaf_decay:
+    index: 29
+    material: OAK_LEAVES
+    name: "&a树叶衰减 &7[{leaf_decay_state}]"
+    lore:
+      - "&7{leaf_decay_label}"
+      - "&8点击后将变为 &f{leaf_decay_next}"
+    action: "command:ps flag leaf-decay {leaf_decay_toggle}"
+  visitor_interact:
+    index: 30
+    material: LEVER
+    name: "&b访客交互 &7[{visitor_interact_state}]"
+    lore:
+      - "&7{visitor_interact_label}"
+      - "&8点击后将变为 &f{visitor_interact_next}"
+    action: "command:ps flag visitor-interact {visitor_interact_toggle}"
+  visitor_container:
+    index: 31
+    material: CHEST
+    name: "&b访客容器 &7[{visitor_container_state}]"
+    lore:
+      - "&7{visitor_container_label}"
+      - "&8点击后将变为 &f{visitor_container_next}"
+    action: "command:ps flag visitor-container {visitor_container_toggle}"
+  visitor_pickup:
+    index: 32
+    material: HOPPER
+    name: "&b访客拾取 &7[{visitor_pickup_state}]"
+    lore:
+      - "&7{visitor_pickup_label}"
+      - "&8点击后将变为 &f{visitor_pickup_next}"
+    action: "command:ps flag visitor-pickup {visitor_pickup_toggle}"
+
+  back:
+    index: 49
+    material: ARROW
+    name: "&f返回"
+    lore: []
+    action: "menu:shelter_controller"
+  close:
+    index: 53
+    material: BARRIER
+    name: "&c关闭"
+    lore: []
+    action: "close"

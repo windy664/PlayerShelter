@@ -1,0 +1,408 @@
+# ============================================================
+# PlayerShelter 消息配置 (十六进制真彩 + 纯白正文高亮版)
+# ============================================================
+# 这里管理命令、保护拦截、跨服传送、生命周期提示等玩家可见文本。
+# 菜单标题和按钮文案请改 gui/controller/*.yml。
+# 颜色支持 Bukkit 传统颜色符号：&a、&7、&f 等，也支持现代 HEX 颜色 (&#RRGGBB)。
+
+prefix: "&#8ee5ee❖ &#ffda75庇护所 &8| &f"
+
+colors:
+  info: WHITE
+  ok: GREEN
+  warn: YELLOW
+  error: RED
+
+messages:
+  no-shelter: "你还没有建立庇护所。"
+  no-shelter-with-create: "你还没有庇护所，输入 &#ffda75/ps create <类型> &f创建一个吧。"
+  player-only: "只有玩家才能使用这个指令。"
+  no-permission: "&#ff6b6b你没有权限进行此操作。"
+  world-load-failed: "&#ff6b6b庇护所世界加载失败。"
+  world-load-failed-retry: "&#ff6b6b庇护所世界加载失败，请稍后重试。"
+
+  word:
+    free: "免费"
+    on: "开启"
+    off: "关闭"
+    some-player: "某位玩家"
+
+  command:
+    no-permission-sub: "&#ff6b6b你没有权限使用 /ps {command} 指令。"
+    unknown: "&#ff6b6b未知指令：{command}，请输入 /ps help 查看帮助。"
+
+  create:
+    player-only: "&#ff6b6b只有玩家才能创建庇护所。"
+    usage: "用法：&#ffda75/ps create <natural(自然)|flat(平地)|void(虚空)>"
+    unknown-type: "&#ff6b6b未知的世界类型：{type}（可选 natural / flat / void）"
+    generating: "「天地氤氲，万物化醇」正在为你生成庇护所世界，请稍候…"
+    success: "庇护所创建成功！正在送你回家。"
+    already-exists: "你已经拥有一个庇护所了。输入 &#ffda75/ps home &f可以回家，或输入 &#ffda75/ps reset &f重置。"
+
+  home:
+    teleporting: "「浩浩乎如冯虚御风」正在传送，欢迎回家…"
+
+  setspawn:
+    must-be-home: "&#ff6b6b你必须站在自己的庇护所世界里，才能设置出生点。"
+    success: "已将庇护所的出生点设置在你脚下的位置。"
+
+  info:
+    header: "&#8ee5ee❖ 你的庇护所 ❖"
+    type-level: "&f地形：&#8ee5ee{type}  &f等级：&#ffda75{level}{max}"
+    plot: "&f范围：&#8ee5ee{plot} &f区块（{blocks} 格，总面积 {area} 区块）"
+    visibility-likes: "&f可见度：&#8ee5ee{visibility}  &f点赞数：&#ff6b6b♥&#8ee5ee{likes}"
+    members: "&f成员：管理员 &#ffda75{admins} &f/ 建筑师 &#ffda75{trusted} &f/ 访客 &#ffda75{access} &f/ 黑名单 &#ff6b6b{denied}"
+    upgrade-cost: "&f升级到 {level} 级需要花费：&#ffda75{cost}"
+    upgrade-items: "&f升级所需材料：&#ffda75{items}"
+    permission-cap: "&f已达到当前权限允许的最高等级 &#ffda75{level}&f 级。"
+
+  upgrade:
+    permission-cap: "&#ff6b6b你的庇护所已满 {level} 级，无法继续升级（需要更高的 playershelter.maxlevel 权限）。"
+    no-materials: "&#ff6b6b升级材料不足，无法升级。"
+    success: "升级成功！庇护所现为 {level} 级，边界已扩大至 &#ffda75{chunks} &f区块（{blocks} 格）。"
+    max-level: "&#ff6b6b你的庇护所已经达到最高等级了。"
+    no-funds: "&#ff6b6b余额不足，无法升级。"
+
+  reset:
+    warning: "&#ff6b6b✖ 警告：&#ffda75此操作将&#ff6b6b彻底清空&#ffda75并重新生成你的庇护所，所有建筑将无法找回！（等级将重置为 1）"
+    warning-keep: "&#ff6b6b✖ 警告：&#ffda75此操作将&#ff6b6b彻底清空&#ffda75并重新生成你的庇护所，所有建筑将无法找回！（保留等级与边界范围）"
+    confirm-hint: "请在 30 秒内输入 &#ffda75/ps confirm &f确认操作，否则将自动取消。"
+    no-pending: "当前没有需要确认的操作。"
+    starting: "正在重置你的庇护所世界…"
+    success: "庇护所已成功重置。正在送你回家。"
+    failed: "&#ff6b6b重置失败，请联系管理员。"
+    cooldown: "&#ff6b6b重置操作太频繁了，请稍后再试（冷却时间：{hours} 小时）。"
+    daily-limit: "&#ff6b6b今天的重置次数已用完（每日上限 {max} 次）。"
+
+  visibility:
+    private: "私密"
+    friends: "仅好友"
+    public: "公开"
+    usage: "用法：&#ffda75/ps visibility <private|friends|public>"
+    unknown: "&#ff6b6b未知的可见度设置：{value}"
+    public-level-required: "&#ff6b6b将庇护所设为公开，需要达到 {level} 级。"
+    success: "庇护所可见度已修改为：&#ffda75{visibility}。"
+
+  role:
+    usage: "用法：&#ffda75/ps <trust|untrust|admin|access|deny|undeny> <玩家名>"
+    invalid-target: "&#ff6b6b找不到该玩家，或不能对自己进行操作。"
+    trust-success: "已将 &#ffda75{player} &f设为建筑师（允许破坏/放置）。"
+    trust-cap: "&#ff6b6b建筑师名额已满（上限 {cap}，升级可增加名额）。"
+    access-success: "已允许 &#ffda75{player} &f前来参观。"
+    deny-success: "已将 &#ffda75{player} &f加入黑名单（禁止进入）。"
+    clear-success: "已移除 &#ffda75{player} &f的所有身份权限。"
+    admin-success: "已将 &#ffda75{player} &f设为管理员（副主人）。"
+    admin-cap: "&#ff6b6b管理员名额已满（上限 {cap}，升级可增加名额）。"
+
+  target:
+    not-found: "&#ff6b6b找不到指定的玩家。"
+    no-shelter: "&#ff6b6b{player} 还没有创建庇护所。"
+
+  visit:
+    player-only: "&#ff6b6b只有玩家才能使用传送指令。"
+    usage: "用法：&#ffda75/ps visit <玩家名>"
+    not-open: "&#ff6b6b对方的庇护所当前不对你开放。"
+    cancelled: "&#ff6b6b传送被取消。"
+    start: "「乘月步虚仙，寻幽入名山」正在传送到 &#ffda75{player} &f的庇护所…"
+    target-load-failed: "&#ff6b6b对方的庇护所世界加载失败。"
+
+  list:
+    empty: "&f「白茫茫一片大地真干净」当前暂无公开的庇护所。"
+    header: "&#8ee5ee❖ 九州风云录 · 庇护所大厅（{sort} · 第 {page} 页） ❖"
+    row: "&f{name} &8· &f{level} 级 &8· &#ff6b6b♥&#8ee5ee{likes}&f{bulletin}"
+    hint: "&f输入 &#ffda75/ps visit <玩家> &f进行拜访，输入 &#ffda75/ps like &f可以点赞。"
+
+  sort:
+    likes: "最多点赞"
+    hot: "当前热门"
+    random: "随机推荐"
+    newest: "最新创建"
+
+  like:
+    must-be-in-shelter: "&#ff6b6b你必须站在对方的庇护所里才能点赞。"
+    self: "&#ff6b6b不能给自己点赞哦。"
+    success: "点赞成功！「投我以木桃，报之以琼瑶」 &#ff6b6b❤"
+    already: "&#ff6b6b你已经给这个庇护所点过赞了。"
+
+  bulletin:
+    clear: "已清空庇护所公告。"
+    update: "公告已更新：&f{text}"
+    prompt-start: "在聊天里输入公告内容，输入 &f取消&e 放弃编辑，输入 &f清空&e 清除公告。"
+    prompt-cancel: "已取消公告编辑。"
+    prompt-empty: "已清空庇护所公告。"
+    prompt-updated: "公告已更新：&f{text}"
+
+  flag:
+    usage: "用法：&#ffda75/ps flag <设置项> <on|off>&f，输入 &#ffda75/ps flags &f查看所有选项。"
+    unknown: "&#ff6b6b未知的设置项：{flag}（输入 /ps flags 查看可用项）"
+    no-permission: "&#ff6b6b你没有修改 {flag} 的权限。"
+    on-off: "&#ff6b6b请使用 on (开启) 或 off (关闭)。"
+    set: "已将 &#8ee5ee{flag} &f设为 &#ffda75{value} &f({description}）。"
+
+  flags:
+    header: "&#8ee5ee❖ 庇护所保护开关 ❖"
+    row: "{state}&f &#8ee5ee{flag} &8— &f{description}"
+    hint: "&f输入 &#ffda75/ps flag <设置项> <on|off> &f来开启或关闭。"
+
+  flag-description:
+    pvp: "允许玩家间战斗 (PVP)"
+    mob-spawning: "允许怪物自然生成"
+    mob-griefing: "允许生物破坏地形 (如苦力怕)"
+    explosions: "允许爆炸破坏方块"
+    fire-spread: "允许火焰蔓延"
+    damage-animals: "允许伤害动物"
+    leaf-decay: "树叶自然掉落"
+    visitor-interact: "允许访客使用门/按钮/拉杆"
+    visitor-container: "允许访客打开箱子/熔炉"
+    visitor-pickup: "允许访客捡起掉落物"
+
+  managed-world:
+    player-only: "&#ff6b6b只有玩家才能使用这个指令。"
+    must-be-in-shelter: "&#ff6b6b你必须站在庇护所世界里才能操作。"
+    no-permission: "&#ff6b6b只有庇护所的主人或管理员才能修改时间/天气。"
+
+  time:
+    usage: "用法：&#ffda75/ps time <day(白天)|noon(中午)|night(夜晚)|midnight(午夜)|数字>"
+    unknown: "&#ff6b6b无法识别的时间参数：{value}"
+    success: "「逝者如斯夫，不舍昼夜」庇护所的时间已设定为：&#ffda75{value}。"
+
+  weather:
+    usage: "用法：&#ffda75/ps weather <clear(晴天)|rain(下雨)|thunder(雷雨)>"
+    clear: "「春和景明，波澜不惊」天气已切换为晴天。"
+    rain: "「黑云翻墨，白雨跳珠」天气已切换为下雨。"
+    thunder: "「殷其雷，在南山之阳」天气已切换为雷雨。"
+    unknown: "&#ff6b6b无法识别的天气参数：{value}"
+
+  top:
+    kind-likes: "点赞排行榜"
+    kind-level: "等级排行榜"
+    header: "&#8ee5ee❖ 庇护所{kind} Top 10 ❖"
+    empty: "&f暂无排行榜数据。"
+    row: "&8#{rank} &#ffda75{name} &f{metric} {extra}"
+    hint: "&f输入 &#ffda75/ps top likes &f查看点赞榜，&#ffda75/ps top level &f查看等级榜。"
+
+  tag:
+    empty: "你还没有为庇护所添加标签。用法：&#ffda75/ps tag add <标签>。"
+    list: "你当前的标签：&#8ee5ee#{tags}"
+    usage: "用法：&#ffda75/ps tag <add|remove> <标签>"
+    cap: "&#ff6b6b每个庇护所最多只能添加 {max} 个标签。"
+    add-success: "已成功添加标签：&#8ee5ee#{tag}"
+    add-exists: "&#ff6b6b你已经添加过这个标签了。"
+    remove-success: "已成功移除标签：&#8ee5ee#{tag}"
+    remove-missing: "&#ff6b6b找不到该标签。"
+
+  search:
+    usage: "用法：&#ffda75/ps search <标签>&f（例如：/ps search 现代建筑）"
+    empty: "&f没有找到带有 &#8ee5ee#{tag} &f标签的庇护所。"
+    header: "&#8ee5ee❖ 标签为 #{tag} 的庇护所 ❖"
+    row: "&f{name} &8· &f{level}级 &8· &#ff6b6b♥&#8ee5ee{likes}"
+    hint: "&f输入 &#ffda75/ps visit <玩家> &f前去拜访。"
+
+  board:
+    clear: "已清空留言板。"
+    delete-success: "已删除该条留言。"
+    delete-missing: "&#ff6b6b找不到这条留言。"
+    id-number: "&#ff6b6b留言 ID 必须是数字。"
+    header: "&#8ee5ee❖ 留言板（第 {page} 页，共 {count} 条） ❖"
+    empty: "&f「本来无一物，何处惹尘埃」当前还没有任何留言。"
+    row: "&8[{id}] &#ffda75{author}&f：{text}"
+    hint: "&f输入 &#ffda75/ps board del <id> &f删除留言，&#ffda75/ps board clear &f清空留言板。"
+
+  msg:
+    player-only: "&#ff6b6b只有玩家才能进行留言。"
+    usage: "用法：&#ffda75/ps msg <玩家> <留言内容>"
+    input-title: "给 {player} 留言"
+    input-hint: "在聊天里直接输入留言，输入 取消 放弃发送。"
+    input-empty: "留言内容不能为空。"
+    input-cancel: "已取消留言。"
+    not-open: "&#ff6b6b对方的庇护所未公开，无法留言。"
+    self: "&#ff6b6b你不能给自己留言，输入 /ps board 可以直接查看。"
+    success: "留言成功！已发送至 &#ffda75{player} &f的留言板。"
+
+  psgs:
+    migration:
+      already-running: "已有迁移正在执行，请等待当前迁移完成。"
+      background: "迁移已进入后台执行，进度会显示在 bossbar 和后台日志中。"
+      start-detail: "开始迁移"
+      finalize-detail: "提交迁移记录"
+      copy-exception: "复制失败：{error}"
+      copy-failed-title: "复制失败"
+      copy-failed: "复制失败：源/目标世界不存在、目标载体复制能力不可用，或高度范围不兼容。"
+      start-failed-title: "迁移启动失败"
+      gs-record-failed-title: "GS 记录提交失败"
+      gs-record-failed: "方块已复制，但 GS 庄园记录提交失败。请先不要重复执行，手动检查目标区域。"
+      finish-failed-title: "迁移收尾失败"
+      finish-failed: "迁移收尾失败：{error}"
+      success: "迁移复制完成。源区域未清空。"
+      bossbar:
+        prepare: "[PSGS] 迁移准备中 {id}"
+        progress: "[PSGS] {phase} {percent}{progress}"
+        success: "[PSGS] 迁移完成"
+        failed: "[PSGS] {reason}"
+      phase:
+        start: "准备迁移"
+        resolve: "检查世界"
+        blocks: "复制区块"
+        entities: "迁移实体"
+        saved-data: "迁移数据"
+        finalize: "提交记录"
+        default: "迁移中"
+
+  help:
+    header: "&#8ee5ee❖ PlayerShelter 庇护所帮助 ❖"
+    create: "&#8ee5ee/ps create <natural|flat|void> &f创建你的庇护所"
+    home: "&#8ee5ee/ps home &f回到庇护所"
+    setspawn: "&#8ee5ee/ps setspawn &f将出生点设置在脚下"
+    info: "&#8ee5ee/ps info &f查看当前庇护所信息"
+    gui: "&#8ee5ee/ps gui &f打开庇护所控制面板"
+    upgrade: "&#8ee5ee/ps upgrade &f升级庇护所（扩大边界范围）"
+    reset: "&#8ee5ee/ps reset [keep] &f重置庇护所地形（需二次确认）"
+    visibility: "&#8ee5ee/ps visibility <private|friends|public> &f设置公开状态"
+    role: "&#8ee5ee/ps trust|untrust|admin|access|deny|undeny <玩家> &f成员权限管理"
+    visit: "&#8ee5ee/ps visit <玩家> &f拜访他人的庇护所"
+    list: "&#8ee5ee/ps list [likes|hot|new|random] &f查看庇护所大厅"
+    top: "&#8ee5ee/ps top [level|likes] &f查看排行榜"
+    tag: "&#8ee5ee/ps tag <add|remove> <标签> &8· &#8ee5ee/ps search <标签> &f管理或搜索标签"
+    board: "&#8ee5ee/ps board &8· &#8ee5ee/ps msg <玩家> <文字> &f查看留言或弹出留言输入框"
+    like: "&#8ee5ee/ps like &f给当前所在的庇护所点赞"
+    bulletin: "&#8ee5ee/ps bulletin <公告内容> &f设置进入提示公告"
+    flag: "&#8ee5ee/ps flag <设置项> <on|off> &8· &#8ee5ee/ps flags &f设置保护开关"
+    time-weather: "&#8ee5ee/ps time <时间> &8· &#8ee5ee/ps weather <天气> &f修改时间与天气"
+    admin: "&#ffda75/ps admin <tp|delete|setlevel|grant|origin|perf|reload|info> <玩家> &f管理员指令"
+
+  admin:
+    no-permission: "&#ff6b6b你没有管理员权限。"
+    unknown-action: "&#ff6b6b未知的管理员操作：{action}"
+    target-usage: "用法：&#ffda75/ps admin {action} <玩家> ..."
+    target-no-shelter: "&#ff6b6b{player} 还没有创建庇护所。"
+    tp-player-only: "&#ff6b6b只有玩家才能使用传送。"
+    tp-start: "正在传送到 &#ffda75{player} &f的庇护所…"
+    delete-success: "已成功删除 &#ffda75{player} &f的庇护所及其世界文件。"
+    setlevel-usage: "用法：&#8ee5ee/ps admin setlevel <玩家> <等级>"
+    level-number: "&#ff6b6b等级必须是整数。"
+    setlevel-success: "已将 &#ffda75{player}&f 的庇护所设为 &#ffda75{level}&f 级 &f(边界扩大至 &#ffda75{chunks}&f 区块)。"
+    setorigin-usage: "用法：&#8ee5ee/ps admin origin <玩家> <x> <z>&f 或 &#8ee5ee/ps admin origin <玩家> here"
+    setorigin-here-player-only: "&#ff6b6b只有玩家才能使用 here 参数。"
+    origin-number: "&#ff6b6b坐标必须是整数。"
+    setorigin-success: "已将 &#ffda75{player}&f 的边界角落吸附到区块坐标 &#ffda75({x}, {z})&f，当前中心点为 &#ffda75({cx}, {cz})&f。"
+    unload-success: "已成功卸载该庇护所世界。"
+    unload-failed: "&#ff6b6b卸载失败（可能仍有玩家在内）。"
+    transfer-usage: "用法：&#ffda75/ps admin transfer <原主人> <新主人>"
+    transfer-target-has-shelter: "&#ff6b6b{player} 已经拥有一个庇护所了，无法接收转让。"
+    transfer-success: "已成功将 &#ffda75{from} &f的庇护所转让给 &#ffda75{to}&f。"
+    regen-start: "正在重建 &#ffda75{player} &f的庇护所世界…"
+    regen-success: "已重建 &#ffda75{player} &f的庇护所（保留等级/成员，仅重置地形）。"
+    regen-failed: "&#ff6b6b重建失败。"
+    grant-usage: "用法：&#8ee5ee/ps admin grant <玩家> <±等级增减>&f（例如 +2 或 -1）"
+    delta-number: "&#ff6b6b增减数值必须是整数。"
+    grant-success: "已将 &#ffda75{player}&f 的庇护所等级调整至 &#ffda75{level}&f 级 &f(边界调整为 &#ffda75{chunks}&f 区块)。"
+    disk-start: "正在统计世界存档占用（后台异步处理中）…"
+    reload-success: "已成功重新读取 config.yml 和语言文件。"
+    reload-storage-warning: "&#ff6b6bstorage.yml/server.yml 属于启动级配置，修改后必须重启服务器才会生效。"
+    reload-runtime-warning: "&#ff6b6b注意：边界限制/生命周期等核心运行参数需要重启服务器才能完全生效。"
+    info:
+      header: "&#8ee5ee❖ {player} 的庇护所信息 ❖"
+      world: "&f世界名：&#8ee5ee{world}  &f地形：&#8ee5ee{type}  &f等级：&#ffda75{level}"
+      border: "&f边界：&#8ee5ee{plot} &f区块（{blocks} 格，总面积 {area} 区块） &f可见度：&#8ee5ee{visibility} &f点赞数：&#ff6b6b♥&#8ee5ee{likes}"
+      origin: "&f角落坐标：&#ffda75({x}, {z})  &f当前中心点：&#ffda75({cx}, {cz})"
+      loaded: "&f状态：是否加载 &#8ee5ee{loaded}  &f当前在线人数 &#ffda75{online}"
+    list:
+      header: "&#8ee5ee❖ 庇护所服务器统计 ❖"
+      summary: "&f总数量：&#8ee5ee{total}  &f当前加载数：&#ffda75{loaded}  &f最高加载上限：&#8ee5ee{max}"
+      world-row: "&8 - &f{world} (在线人数 &#ffda75{online}&f)"
+    disk:
+      row: "&8 - &#8ee5ee{world} &f占用 &#ffda75{size}&f，&#8ee5ee{days} &f天前曾活跃"
+      header: "&#8ee5ee❖ 庇护所磁盘占用（共 {count} 个 / 总计 {size}）Top {show} ❖"
+    perf:
+      header: "&#8ee5ee❖ 已加载庇护所性能概览（共 {loaded} 个）Top {show} ❖"
+      empty: "&f当前没有已加载的庇护所世界。"
+      row: "&8 - &#8ee5ee{world} &f玩家数 &#ffda75{players} &f/ 区块 &#ffda75{chunks} &f/ 实体 &#ffda75{entities} &f/ 方块实体 &#ffda75{tiles} &f/ 强加载 &#ffda75{forced} &f/ 插件票据 &#ffda75{tickets}"
+      note: "&8注：这里仅显示 Bukkit/Paper 可见数据；NeoForge 原生的 mod ticket 需要通过其他方式诊断。"
+
+  psgs:
+    no-permission: "&#ff6b6b你没有进行庇护所迁移的权限。"
+    reload: "已重新读取 &#8ee5eeGuildShelter API&f。"
+    cancel: "迁移操作已取消。"
+    usage:
+      gs-to-ps: "用法：&#8ee5ee/psgs gs-to-ps <玩家>&f；将该玩家的 GS 公会庄园提取为个人的 PS 庇护所。"
+      ps-to-gs: "用法：&#8ee5ee/psgs ps-to-gs <玩家> <目标公会> [--force]&f；将 PS 庇护所迁入至 GS 公会庄园中。"
+    error:
+      no-gs-manor: "&#ff6b6b未找到该玩家可导出的 GuildShelter 公会庄园。"
+      ps-target-too-small: "&#ff6b6b目标 PS 庇护所区域过小，至少需要 {chunks} 区块。"
+      no-ps-shelter: "&#ff6b6b该玩家目前还没有可导出的 PlayerShelter 庇护所。"
+      gs-target-unavailable: "&#ff6b6b目标公会不存在、位置已满、玩家已有庄园，或区域空间不足。"
+      no-pending: "&#ff6b6b当前没有等待确认的迁移操作，或确认已超时（30秒）。"
+      copy-exception: "&#ff6b6b迁移发生异常：{message}"
+      copy-failed: "&#ff6b6b迁移失败：源/目标世界不存在、区块无法加载，或高度不兼容。"
+      gs-commit-failed: "&#ff6b6b区块已复制，但 GS 公会庄园注册失败。请不要重复操作，请先检查目标区域。"
+      gs-api-unavailable: "&#ff6b6b未检测到 GuildShelter API，请确认插件已正常启动。"
+      gs-missing: "&#ff6b6b未安装 GuildShelter，无法使用迁移指令。"
+      gs-api-incompatible: "&#ff6b6bGuildShelter API 版本不兼容，缺少迁移接口：{message}"
+    force:
+      release: "&#8ee5ee--force&f 强制模式：将先解除该玩家的 GS 旧数据；仅删除名额记录，不破坏原有方块。"
+      failed: "&#ff6b6b强制解除失败：无法调用 GuildShelter 接口。"
+      rejected: "&#ff6b6b尝试解除成功，但 GuildShelter 依然拒绝迁入。"
+    warn:
+      copy-nbt: "本次迁移将会保留所有方块与实体 NBT 数据；NeoForge 环境将连同 data/*.dat 一并迁移。"
+    confirm-hint:
+      gs-to-ps: "请在 30 秒内输入 &#8ee5ee/psgs confirm&f 确认操作；源 GS 庄园将被保留。"
+      ps-to-gs: "请在 30 秒内输入 &#8ee5ee/psgs confirm&f 确认操作；源 PS 庇护所将被保留。"
+    copy:
+      start: "正在执行世界迁移！期间请勿关闭或重启服务器。"
+      done: "迁移完成！源区域数据未受影响。"
+    plan:
+      gs-to-ps:
+        ok: "验证通过：&#ffda75公会庄园(GS) &f-> &#8ee5ee庇护所(PS)&f，目标玩家 &#ffda75{player}"
+      ps-to-gs:
+        ok: "验证通过：&#8ee5ee庇护所(PS) &f-> &#ffda75公会庄园(GS)&f，目标玩家 &#ffda75{player}"
+      source-gs: "&f源 GS：&#8ee5ee{world}  &f公会=&#ffda75{guild}  &f位置=&#ffda75{slot}  &f区块=&#ffda75{chunks}"
+      target-gs: "&f目标 GS：&#8ee5ee{world}  &f公会=&#ffda75{guild}  &f位置=&#ffda75{slot}  &f区块=&#ffda75{chunks}"
+      source-ps: "&f源 PS：&#8ee5ee{world}  &f区块=&#ffda75{chunks}"
+      target-ps: "&f目标 PS：&#8ee5ee{world}  &f区块=&#ffda75{chunks}"
+      side: "&f边界大小：&#ffda75{from} &f-> &#ffda75{to} &f区块"
+    help:
+      header: "&#ffda75❖ PlayerShelter / GuildShelter 数据迁移 ❖"
+      gs-to-ps: "&#8ee5ee/psgs gs-to-ps <玩家> &f- 将 GS 庄园迁移至 PS 庇护所"
+      ps-to-gs: "&#8ee5ee/psgs ps-to-gs <玩家> <目标公会> [--force] &f- 将 PS 庇护所迁移至 GS 庄园"
+      confirm: "&#8ee5ee/psgs confirm &f- 确认执行预检的迁移操作"
+      cancel: "&#8ee5ee/psgs cancel &f- 取消当前待确认的操作"
+      reload: "&#8ee5ee/psgs reload &f- 重载 GuildShelter API 数据"
+
+  router:
+    cross-server: "正在将你跨服传送到目标服务器…"
+
+  lifecycle:
+    inactive-grace: "你的庇护所因长时间未活跃已进入&#ff6b6b待删除状态&f，本次登录已为你刷新计时。常回来看看就不会被清理哦。"
+    pending-load-failed: "&#ff6b6b目标庇护所加载失败。"
+
+  greet:
+    own: "「久在樊笼里，复得返自然」欢迎回到你的庇护所。"
+    visit: "「有朋自远方来，不亦乐乎」欢迎来到 &#ffda75{owner} &f的庇护所。"
+    bulletin: "&f庇护所公告：&#8ee5ee{bulletin}"
+
+  protection:
+    outside-border-build: "&#ff6b6b你不能在世界边界之外建造。"
+    outside-border-action: "&#ff6b6b你不能在世界边界之外进行此操作。"
+    no-build: "&#ff6b6b你没有在这个庇护所建造方块的权限。"
+    no-break: "&#ff6b6b你没有在这个庇护所破坏方块的权限。"
+    no-interact: "&#ff6b6b你不能在这里使用物品或方块。"
+    visitor-container: "&#ff6b6b访客不能打开这里的箱子或容器。"
+    visitor-interact: "&#ff6b6b访客不能在这里使用按钮、门或拉杆。"
+    visitor-action: "&#ff6b6b访客不能在这里进行该操作。"
+    no-liquid-place: "&#ff6b6b你不能在这里放置液体（水/岩浆等）。"
+    no-liquid-take: "&#ff6b6b你不能在这里装走液体。"
+    no-hanging-break: "&#ff6b6b你不能破坏这里的展示框或画。"
+    no-hanging-place: "&#ff6b6b你不能在这里放置展示框或画。"
+    no-armor-stand: "&#ff6b6b你不能操作这里的盔甲架。"
+    no-vehicle-break: "&#ff6b6b你不能破坏这里的矿车或船。"
+
+  limit:
+    machine-cap: "&#ff6b6b这类机器方块已达到庇护所上限（{cap}），请先升级庇护所。"
+    tile-cap: "&#ff6b6b容器/机器等方块已达到上限（{cap}），请先升级庇护所。"
+    mob-cap: "&#ff6b6b动物/怪物数量已达到庇护所上限（{cap}）。"
+    vehicle-cap: "&#ff6b6b矿车/船的数量已达到上限（{cap}），请先升级庇护所。"
+
+# 兼容覆盖表。
+# 少量第三方扩展或旧版本残留文本如果仍走直接消息发送，可用 hash 覆盖。
+# 新功能请优先在 messages.<key> 里配置。
+overrides: {}

@@ -1,0 +1,19 @@
+# PlayerShelter 存储配置
+#
+# 这里专门放数据存储后端配置。
+# 未来如果要兼容更多数据格式或迁移方式，也放在这个文件里，不再塞进 config.yml。
+#
+# 当前支持：
+#   sqlite - 单服默认，数据保存在插件目录 data.db
+#   mysql  - 跨服/多后端共享数据时使用
+#
+# 注意：config.yml 里 cross_server=true 时，本文件的 type 会自动按 mysql 处理。
+
+type: sqlite
+
+mysql:
+  host: localhost
+  port: 3306
+  database: playershelter
+  user: root
+  password: ""

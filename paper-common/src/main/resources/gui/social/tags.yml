@@ -1,0 +1,45 @@
+# 标签管理页。动态区域由代码填充当前庄园标签。
+title: "&0标签管理 {count}/{max_count}"
+size: 45
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  summary:
+    index: 4
+    material: NAME_TAG
+    name: "&b标签管理"
+    lore:
+      - "&7当前标签: &f{count}/{max_count}"
+      - "&7公开庄园可通过标签被搜索到。"
+      - ""
+      - "&8点击中间标签可移除。"
+    action: ""
+  add:
+    index: 30
+    material: WRITABLE_BOOK
+    name: "&a新增标签"
+    lore:
+      - "&7在聊天里输入一个新标签。"
+      - "&8最多可添加 {max_count} 个。"
+    action: "tag-add"
+  search:
+    index: 32
+    material: COMPASS
+    name: "&e搜索标签"
+    lore:
+      - "&7按标签查找公开庄园。"
+      - "&8搜索结果可直接拜访。"
+    action: "tag-search"
+  back:
+    index: 40
+    material: ARROW
+    name: "&f返回"
+    lore:
+      - "&7回到社交页。"
+    action: "menu:social"
+  close:
+    index: 44
+    material: BARRIER
+    name: "&c关闭"
+    lore: []
+    action: "close"

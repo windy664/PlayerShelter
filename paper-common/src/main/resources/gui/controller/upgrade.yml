@@ -1,0 +1,70 @@
+# 升级页。展示当前状态、升级收益和消耗。
+title: "&0庄园升级"
+size: 54
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  summary:
+    index: 4
+    material: BOOK
+    name: "&e升级概览"
+    lore:
+      - "&7当前等级: &f{level}/{max_level}"
+      - "&7状态: &f{upgrade_state}"
+      - "&7下级边长: &f{next_plot_size} chunk"
+      - "&7下级边界: &f{next_border} 格"
+      - "&8{upgrade_hint}"
+    action: ""
+
+  current:
+    index: 10
+    material: OAK_PLANKS
+    name: "&6当前状态"
+    lore:
+      - "&7等级: &f{level}/{max_level}"
+      - "&7可用边长: &f{plot_size} chunk"
+      - "&7面积: &f{area_chunks} chunk"
+      - "&7边界: &f{border} 格"
+      - "&7访问模式: &f{visibility_label}"
+    action: ""
+  next:
+    index: 13
+    material: GLOWSTONE
+    name: "&a升级后"
+    lore:
+      - "&7可用边长: &f{next_plot_size} chunk"
+      - "&7边界: &f{next_border} 格"
+      - "&7副主人上限: &f{admins} → {next_admin_cap}"
+      - "&7共建上限: &f{trusted} → {next_trust_cap}"
+      - "&7限额: &f{mob_cap} / {tile_cap} / {drop_cap} / {vehicle_cap}"
+      - "&7升级后限额: &f{next_mob_cap} / {next_tile_cap} / {next_drop_cap} / {next_vehicle_cap}"
+    action: ""
+  cost:
+    index: 16
+    material: CHEST
+    name: "&b升级消耗"
+    lore:
+      - "&7费用: &f{upgrade_cost}"
+      - "&7材料: &f{upgrade_items}"
+      - "&8材料不足时，点击也不会成功。"
+    action: ""
+
+  upgrade:
+    index: 31
+    material: EMERALD
+    name: "&a确认升级"
+    lore:
+      - "&7{upgrade_hint}"
+    action: "command:ps upgrade"
+  back:
+    index: 49
+    material: ARROW
+    name: "&f返回"
+    lore: []
+    action: "menu:shelter_controller"
+  close:
+    index: 53
+    material: BARRIER
+    name: "&c关闭"
+    lore: []
+    action: "close"

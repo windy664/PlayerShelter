@@ -1,0 +1,15 @@
+// core：domain · service · persistence。平台无关纯 Java，禁止任何 org.bukkit / net.neoforged。
+// JDBC/Hikari 仅 compileOnly（运行期由载体 plugin.yml 的 libraries 提供）。
+
+dependencies {
+    compileOnly 'com.zaxxer:HikariCP:5.0.0'
+    compileOnly 'org.xerial:sqlite-jdbc:3.47.1.0'
+
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}

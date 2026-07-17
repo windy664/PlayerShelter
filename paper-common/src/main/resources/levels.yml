@@ -1,0 +1,357 @@
+# ============================================================
+# PlayerShelter 等级配置
+# ============================================================
+# 本文件集中管理所有“随等级变化”的配置。
+#
+# 配置结构：
+# levels.<等级>.side-chunks        正方形可用边长，单位是 chunk
+# levels.<等级>.caps.admin         副主人名额
+# levels.<等级>.caps.trust         共建成员名额
+# levels.<等级>.upgrade.money      升到本等级需要的 Vault 金钱，0 表示不扣钱
+# levels.<等级>.upgrade.items      升到本等级需要扣除的材料
+# levels.<等级>.limits             本等级实体、掉落物、方块实体、机器限额
+#
+# 重要说明：
+# - PlayerShelter 使用 WorldBorder 做实际限制，不维护独立 chunk 集合。
+# - side-chunks 表示“正方形边长”，单位是 chunk。
+# - 例如 side-chunks=6 表示 6x6 chunk，可用边界边长为 96 格。
+# - WorldBorder 从庄园角点向 +X/+Z 扩展，便于未来从 GuildShelter 迁移坐标。
+# - upgrade 写在“目标等级”里；例如 levels.2.upgrade 表示 1 级升到 2 级的费用。
+# - 已创建庄园会冻结布局参数；修改本文件主要影响新建庄园和后续升级读取。
+
+levels:
+  1:
+    side-chunks: 6
+    caps:
+      admin: 3
+      trust: 5
+    limits:
+      mobs: 60
+      tiles: 650
+      drops: 100
+      vehicles: 20
+      machines:
+        "minecraft:hopper": 32
+
+  2:
+    side-chunks: 7
+    caps:
+      admin: 3
+      trust: 6
+    upgrade:
+      money: 1000
+      items: ["minecraft:oak_log:400", "minecraft:cobblestone:400", "minecraft:oak_planks:5"]
+    limits:
+      mobs: 65
+      tiles: 710
+      drops: 110
+      vehicles: 22
+      machines:
+        "minecraft:hopper": 34
+
+  3:
+    side-chunks: 8
+    caps:
+      admin: 3
+      trust: 7
+    upgrade:
+      money: 2500
+      items: ["minecraft:oak_planks:20", "minecraft:stone_bricks:20", "minecraft:iron_ingot:5"]
+    limits:
+      mobs: 70
+      tiles: 790
+      drops: 120
+      vehicles: 25
+      machines:
+        "minecraft:hopper": 36
+
+  4:
+    side-chunks: 8
+    caps:
+      admin: 3
+      trust: 8
+    upgrade:
+      money: 5000
+      items: ["minecraft:oak_planks:20", "minecraft:stone_bricks:20", "minecraft:white_concrete:5", "minecraft:iron_nugget:5"]
+    limits:
+      mobs: 75
+      tiles: 860
+      drops: 130
+      vehicles: 27
+      machines:
+        "minecraft:hopper": 38
+
+  5:
+    side-chunks: 9
+    caps:
+      admin: 3
+      trust: 9
+    upgrade:
+      money: 8000
+      items: ["minecraft:granite:10", "minecraft:stone_bricks:30", "minecraft:white_concrete:5", "minecraft:iron_ingot:5"]
+    limits:
+      mobs: 80
+      tiles: 930
+      drops: 140
+      vehicles: 30
+      machines:
+        "minecraft:hopper": 40
+
+  6:
+    side-chunks: 9
+    caps:
+      admin: 3
+      trust: 10
+    upgrade:
+      money: 12000
+      items: ["minecraft:granite:15", "minecraft:stone_bricks:30", "minecraft:white_concrete:10", "minecraft:iron_ingot:10"]
+    limits:
+      mobs: 86
+      tiles: 1000
+      drops: 156
+      vehicles: 33
+      machines:
+        "minecraft:hopper": 43
+
+  7:
+    side-chunks: 10
+    caps:
+      admin: 3
+      trust: 11
+    upgrade:
+      money: 18000
+      items: ["minecraft:glass:15", "minecraft:stone_bricks:30", "minecraft:white_concrete:15", "minecraft:iron_ingot:10"]
+    limits:
+      mobs: 92
+      tiles: 1070
+      drops: 172
+      vehicles: 36
+      machines:
+        "minecraft:hopper": 46
+
+  8:
+    side-chunks: 10
+    caps:
+      admin: 3
+      trust: 12
+    upgrade:
+      money: 26000
+      items: ["minecraft:glass:15", "minecraft:stone_bricks:30", "minecraft:white_concrete:15", "minecraft:copper_ingot:10"]
+    limits:
+      mobs: 98
+      tiles: 1140
+      drops: 188
+      vehicles: 39
+      machines:
+        "minecraft:hopper": 50
+
+  9:
+    side-chunks: 11
+    caps:
+      admin: 3
+      trust: 13
+    upgrade:
+      money: 36000
+      items: ["minecraft:quartz:25", "minecraft:leather:15", "minecraft:white_concrete:20", "minecraft:copper_ingot:15"]
+    limits:
+      mobs: 104
+      tiles: 1210
+      drops: 204
+      vehicles: 42
+      machines:
+        "minecraft:hopper": 53
+
+  10:
+    side-chunks: 11
+    caps:
+      admin: 3
+      trust: 14
+    upgrade:
+      money: 50000
+      items: ["minecraft:white_concrete:30", "minecraft:iron_bars:20", "minecraft:string:15", "minecraft:slime_ball:15"]
+    limits:
+      mobs: 110
+      tiles: 1280
+      drops: 220
+      vehicles: 45
+      machines:
+        "minecraft:hopper": 56
+        # 模组机器限额示例：按需解除注释并改成服务器实际方块 id。
+        # "mekanism:digital_miner": 1
+        # "mekanism:crusher": 8
+        # "ae2:controller": 2
+        # "refinedstorage:controller": 2
+        # "modern_industrialization:electric_blast_furnace": 2
+        # "create:mechanical_drill": 12
+
+  11:
+    side-chunks: 12
+    caps:
+      admin: 3
+      trust: 15
+    upgrade:
+      money: 65000
+      items: ["minecraft:white_concrete:30", "minecraft:glass:20", "minecraft:redstone:15", "minecraft:honeycomb:15"]
+    limits:
+      mobs: 115
+      tiles: 1365
+      drops: 240
+      vehicles: 48
+      machines:
+        "minecraft:hopper": 61
+
+  12:
+    side-chunks: 12
+    caps:
+      admin: 3
+      trust: 16
+    upgrade:
+      money: 82000
+      items: ["minecraft:white_concrete:30", "minecraft:leather:20", "minecraft:quartz:15", "minecraft:slime_ball:15"]
+    limits:
+      mobs: 120
+      tiles: 1450
+      drops: 260
+      vehicles: 51
+      machines:
+        "minecraft:hopper": 66
+
+  13:
+    side-chunks: 12
+    caps:
+      admin: 3
+      trust: 17
+    upgrade:
+      money: 100000
+      items: ["minecraft:white_concrete:30", "minecraft:diamond:20", "minecraft:string:15", "minecraft:brick:15"]
+    limits:
+      mobs: 125
+      tiles: 1535
+      drops: 280
+      vehicles: 54
+      machines:
+        "minecraft:hopper": 71
+
+  14:
+    side-chunks: 13
+    caps:
+      admin: 3
+      trust: 18
+    upgrade:
+      money: 120000
+      items: ["minecraft:white_concrete:30", "minecraft:emerald:20", "minecraft:string:20", "minecraft:brick:20"]
+    limits:
+      mobs: 130
+      tiles: 1620
+      drops: 300
+      vehicles: 57
+      machines:
+        "minecraft:hopper": 75
+
+  15:
+    side-chunks: 13
+    caps:
+      admin: 3
+      trust: 19
+    upgrade:
+      money: 145000
+      items: ["minecraft:white_concrete:30", "minecraft:redstone:20", "minecraft:leather:20", "minecraft:copper_ingot:20"]
+    limits:
+      mobs: 135
+      tiles: 1705
+      drops: 320
+      vehicles: 60
+      machines:
+        "minecraft:hopper": 80
+        # "mekanism:digital_miner": 1
+        # "mekanism:crusher": 12
+        # "ae2:controller": 3
+        # "refinedstorage:controller": 3
+        # "modern_industrialization:electric_blast_furnace": 3
+        # "create:mechanical_drill": 16
+
+  16:
+    side-chunks: 13
+    caps:
+      admin: 3
+      trust: 20
+    upgrade:
+      money: 170000
+      items: ["minecraft:white_concrete:30", "minecraft:diamond:20", "minecraft:leather:20", "minecraft:deepslate_tiles:20"]
+    limits:
+      mobs: 138
+      tiles: 1790
+      drops: 340
+      vehicles: 63
+      machines:
+        "minecraft:hopper": 84
+
+  17:
+    side-chunks: 14
+    caps:
+      admin: 3
+      trust: 21
+    upgrade:
+      money: 200000
+      items: ["minecraft:white_concrete:30", "minecraft:redstone:20", "minecraft:string:20", "minecraft:brick:20"]
+    limits:
+      mobs: 141
+      tiles: 1875
+      drops: 360
+      vehicles: 66
+      machines:
+        "minecraft:hopper": 88
+
+  18:
+    side-chunks: 14
+    caps:
+      admin: 3
+      trust: 22
+    upgrade:
+      money: 235000
+      items: ["minecraft:white_concrete:30", "minecraft:redstone:20", "minecraft:string:20", "minecraft:brick:20"]
+    limits:
+      mobs: 144
+      tiles: 1960
+      drops: 380
+      vehicles: 69
+      machines:
+        "minecraft:hopper": 92
+
+  19:
+    side-chunks: 14
+    caps:
+      admin: 3
+      trust: 23
+    upgrade:
+      money: 275000
+      items: ["minecraft:copper_ingot:20", "minecraft:iron_ingot:20", "minecraft:white_concrete:30", "minecraft:leather:20"]
+    limits:
+      mobs: 147
+      tiles: 2045
+      drops: 400
+      vehicles: 72
+      machines:
+        "minecraft:hopper": 96
+
+  20:
+    side-chunks: 15
+    caps:
+      admin: 3
+      trust: 24
+    upgrade:
+      money: 320000
+      items: ["minecraft:white_concrete:30", "minecraft:netherite_scrap:20", "minecraft:leather:20", "minecraft:iron_ingot:20"]
+    limits:
+      mobs: 150
+      tiles: 2130
+      drops: 420
+      vehicles: 75
+      machines:
+        "minecraft:hopper": 100
+        # "mekanism:digital_miner": 2
+        # "mekanism:crusher": 16
+        # "ae2:controller": 4
+        # "refinedstorage:controller": 4
+        # "modern_industrialization:electric_blast_furnace": 4
+        # "create:mechanical_drill": 20

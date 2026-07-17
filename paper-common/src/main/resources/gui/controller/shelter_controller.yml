@@ -1,0 +1,126 @@
+# ============================================================
+# PlayerShelter 庄园控制器 - 庄主主菜单
+# ============================================================
+# 这个页面只放庄主对自己庄园的控制入口。社交发现类页面放在 gui/social。
+#
+# 支持的 action：
+#   ""                         空动作，只展示
+#   "close"                    关闭菜单
+#   "menu:文件名"              打开对应分类下的 YAML
+#   "command:ps xxx"           让玩家执行命令，不要带开头的 /
+#   "prompt:xxx"               打开聊天输入，用于文本型设置
+#
+# 可用占位符：
+#   {player} {owner} {world} {level} {max_level} {border}
+#   {plot_size} {side_chunks} {area_chunks} {max_chunks} {next_side_chunks} {next_plot_size}
+#   {visibility} {visibility_label} {likes} {admins} {admin_cap} {trusted} {trust_cap}
+#   {access} {denied} {upgrade_cost} {upgrade_items} {bulletin}
+#   {tags_count} {board_messages}
+#   {mobs} {mob_cap} {tiles} {tile_cap} {drops} {drop_cap} {vehicles} {vehicle_cap}
+
+title: "&0庄园控制器"
+size: 54
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  header:
+    index: 4
+    material: LECTERN
+    name: "&b&l庄园总览"
+    lore:
+      - "&7庄主: &f{player}"
+      - "&7等级: &f{level}/{max_level}"
+      - "&7地块: &f{plot_size} chunk &8({area_chunks} chunk)"
+      - "&7访问: &f{visibility_label}"
+      - "&7公告: &f{bulletin}"
+      - ""
+      - "&8这里是庄主对自己庄园的控制面板。"
+    action: ""
+
+  info:
+    index: 10
+    material: BOOK
+    name: "&e庄园资料"
+    lore:
+      - "&7查看世界、等级、地块和点赞。"
+      - "&8也可以设置庄园出生点。"
+    action: "menu:info"
+  home:
+    index: 11
+    material: COMPASS
+    name: "&a回家"
+    lore:
+      - "&7传送回你的庄园出生点。"
+    action: "command:ps home"
+  setspawn:
+    index: 12
+    material: RED_BED
+    name: "&b设置出生点"
+    lore:
+      - "&7把庄园出生点设到脚下。"
+      - "&8建议站在安全区域后再点击。"
+    action: "command:ps setspawn"
+
+  upgrade:
+    index: 14
+    material: EXPERIENCE_BOTTLE
+    name: "&a升级扩建"
+    lore:
+      - "&7下级地块: &f{next_plot_size} chunk"
+      - "&7费用: &f{upgrade_cost}"
+      - "&8先看升级收益预览。"
+    action: "menu:upgrade"
+  limits:
+    index: 15
+    material: OBSERVER
+    name: "&6限额监控"
+    lore:
+      - "&7状态: &f{limits_state}"
+      - "&7生物: &f{mobs}/{mob_cap}"
+      - "&7方块实体: &f{tiles}/{tile_cap}"
+      - "&8查看当前庄园负载。"
+    action: "menu:limits"
+  bulletin:
+    index: 16
+    material: PAPER
+    name: "&e公告"
+    lore:
+      - "&7当前公告: &f{bulletin}"
+      - "&8编辑公开目录展示语。"
+    action: "prompt:bulletin"
+
+  members:
+    index: 28
+    material: PLAYER_HEAD
+    name: "&d成员与访问"
+    lore:
+      - "&7管理员: &f{admins}/{admin_cap}"
+      - "&7共建: &f{trusted}/{trust_cap}"
+      - "&7访客/黑名单: &f{access}/{denied}"
+      - "&8管理可见性和成员命令入口。"
+    action: "menu:members"
+  flags:
+    index: 29
+    material: SHIELD
+    name: "&c保护开关"
+    lore:
+      - "&7管理 PvP、刷怪、爆炸、访客交互等。"
+      - "&8打开常用 flag 快捷页。"
+    action: "menu:flags"
+  social:
+    index: 33
+    material: EMERALD
+    name: "&f社交中心"
+    lore:
+      - "&7留言: &f{board_messages} &8· &7标签: &f{tags_count}"
+      - "&7留言板、公开目录、标签搜索。"
+      - "&8社交页位于 gui/social。"
+    action: "menu:social"
+
+  close:
+    index: 49
+    material: BARRIER
+    name: "&c关闭"
+    lore:
+      - "&7关闭控制器。"
+    action: "close"

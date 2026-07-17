@@ -1,0 +1,7 @@
+// playershelter-api：对外扩展 API。纯接口 + 只读 DTO + 事件类，零实现、零内部依赖。
+// 第三方附属插件【只 compileOnly 依赖本模块】，绝不 shade（运行期由主插件 jar 提供这些类）。
+// 事件类 extends org.bukkit.event.Event，故 compileOnly paper-api；不依赖 core（自带轻量 DTO，保持隔离）。
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:26.2.build.48-alpha'
+}

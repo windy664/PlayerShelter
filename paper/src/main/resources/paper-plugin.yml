@@ -1,0 +1,81 @@
+name: PlayerShelter
+version: ${mod_version}
+main: org.windy.playershelter.paper.PlayerShelterPaperPlugin
+# 库加载器（paper-plugin.yml 无 libraries: 块，JDBC/驱动改由此类 Maven 拉取）。
+loader: org.windy.playershelter.runtime.PsPluginLoader
+api-version: '1.21'
+description: 一人一世界：每个玩家拥有一个独立世界，等级越高边界越大。
+authors: [windy]
+# 软依赖（全程经端口适配，缺席静默降级）。Paper 原生插件是隔离类加载器：
+#   凡代码里会直接引用其类的（Iris/Vault/PlaceholderAPI）必须 join-classpath: true，否则 NoClassDefFound。
+#   只经 Bukkit API/服务间接用到的（WorldEdit/FAWE）无需并入 classpath。
+#   load: AFTER = 本插件在这些依赖之后加载，保证 onEnable 时它们已就绪。
+dependencies:
+  server:
+    Vault:              { load: AFTER, required: false, join-classpath: true }
+    PlaceholderAPI:     { load: AFTER, required: false, join-classpath: true }
+    Iris:               { load: AFTER, required: false, join-classpath: true }
+    GuildShelter:       { load: AFTER, required: false, join-classpath: true }
+    WorldEdit:          { load: AFTER, required: false, join-classpath: false }
+    FastAsyncWorldEdit: { load: AFTER, required: false, join-classpath: false }
+# 命令：paper-plugin.yml 不支持 commands: 块，/ps 经 LifecycleEvents.COMMANDS + PsBrigadier 注册。
+permissions:
+  playershelter.admin:
+    description: 全权管理 PlayerShelter
+    default: op
+  playershelter.admin.visit.any:
+    description: 无视可见性进入任意庇护所
+    default: op
+  playershelter.admin.bypass.border:
+    description: 无视世界边界
+    default: op
+  playershelter.admin.build.other:
+    description: 在别人庇护所建造/破坏
+    default: op
+  playershelter.admin.transfer:
+    description: 转让庇护所所有权（决策 #72 仅管理员）
+    default: op
+  psgs.admin:
+    description: 使用 PlayerShelter/GuildShelter 互迁命令
+    default: op
+  # 升级等级上限：给玩家/权限组授予 playershelter.maxlevel.<n>（如 .10 / .30），取最大的 n 为其升级上限；
+  # 不授予则用 config level.max 兜底。动态节点，由 LuckPerms 等权限组授予即可，无需在此逐一声明。
+  # 玩家子命令开关，默认放行；服主想按等级收紧时改 default。
+  playershelter.command.create: { default: true }
+  playershelter.command.home: { default: true }
+  playershelter.command.setspawn: { default: true }
+  playershelter.command.info: { default: true }
+  playershelter.command.upgrade: { default: true }
+  playershelter.command.reset: { default: true }
+  playershelter.command.visibility: { default: true }
+  playershelter.command.trust: { default: true }
+  playershelter.command.untrust: { default: true }
+  playershelter.command.admin_add: { default: true }
+  playershelter.command.access: { default: true }
+  playershelter.command.deny: { default: true }
+  playershelter.command.undeny: { default: true }
+  playershelter.command.visit: { default: true }
+  playershelter.command.list: { default: true }
+  playershelter.command.like: { default: true }
+  playershelter.command.bulletin: { default: true }
+  playershelter.command.flag: { default: true }
+  playershelter.command.time: { default: true }
+  playershelter.command.weather: { default: true }
+  playershelter.command.top: { default: true }
+  playershelter.command.tag: { default: true }
+  playershelter.command.search: { default: true }
+  playershelter.command.gui: { default: true }
+  playershelter.command.board: { default: true }
+  playershelter.command.msg: { default: true }
+  playershelter.command.help: { default: true }
+  # per-flag 权限（决策 P4）：默认放行，服主可用负号收紧谁能设某 flag。
+  playershelter.flag.pvp: { default: true }
+  playershelter.flag.mob-spawning: { default: true }
+  playershelter.flag.mob-griefing: { default: true }
+  playershelter.flag.explosions: { default: true }
+  playershelter.flag.fire-spread: { default: true }
+  playershelter.flag.damage-animals: { default: true }
+  playershelter.flag.leaf-decay: { default: true }
+  playershelter.flag.visitor-interact: { default: true }
+  playershelter.flag.visitor-container: { default: true }
+  playershelter.flag.visitor-pickup: { default: true }

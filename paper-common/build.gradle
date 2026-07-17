@@ -1,0 +1,40 @@
+// paper-common：所有载体共享的 Bukkit/Paper API 胶水 —— adapter/** · 接缝接口 + 默认实现 ·
+// 抽象引导 · 共享资源（config/messages/lang）。代码走 org.bukkit.*（Paper 是其超集，另有 io.papermc.paper.*）。
+// 铁律：classpath 里【没有】net.neoforged，写了就编不过 —— "Paper 入口禁止静态引用 NeoForge" 由结构保证。
+
+dependencies {
+    api project(':core')
+    api project(':playershelter-api')   // 对外扩展 API（实现+注册在本模块；载体 jar 会 shade 进去）
+
+    // Paper-only（决策：目标端 Youer 混合端 = Paper/Purpur API；不再兜纯 Spigot）。
+    compileOnly 'io.papermc.paper:paper-api:26.2.build.48-alpha'
+
+    // WorldEdit / FAWE API（compileOnly，不打包，由服务器上的 FAWE/WE 插件提供）。
+    compileOnly('com.sk89q.worldedit:worldedit-bukkit:7.4.3') { transitive = false }
+    compileOnly('com.sk89q.worldedit:worldedit-core:7.4.3') { transitive = false }
+
+    // 软依赖（全程经端口适配，缺席静默）
+    compileOnly 'me.clip:placeholderapi:2.11.5'
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7.1'
+
+    // Iris 维度引擎 API：走本地 libs/（JitPack 构建失败拉不到），自动收进编译 classpath。
+    compileOnly rootProject.fileTree('libs') {
+        include '*.jar'
+        exclude 'minecraft-server-patched*', 'neoforge-*', 'worldedit-*'
+    }
+
+    compileOnly 'com.zaxxer:HikariCP:5.0.0'
+    compileOnly 'org.xerial:sqlite-jdbc:3.47.1.0'
+
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'io.papermc.paper:paper-api:26.2.build.48-alpha'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // 存储集成测试：用真 SQLite 临时库跑迁移 + 仓库/目录往返，验证 SQL 方言（否则只能上线才知道）。
+    testImplementation 'com.zaxxer:HikariCP:5.0.0'
+    testImplementation 'org.xerial:sqlite-jdbc:3.47.1.0'
+}
+
+test {
+    useJUnitPlatform()
+}

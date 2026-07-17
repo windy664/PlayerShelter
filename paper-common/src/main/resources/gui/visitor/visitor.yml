@@ -1,0 +1,50 @@
+# 访客操作页。玩家站在别人庇护所里时，/ps gui 会优先打开这里。
+title: "&0访问 {owner}"
+size: 45
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  header:
+    index: 4
+    material: COMPASS
+    name: "&6访问面板"
+    lore:
+      - "&7对象: &f{owner}"
+      - "&7等级: &f{level}/{max_level}"
+      - "&7可见性: &f{visibility}"
+      - "&7公告: &f{bulletin}"
+    action: ""
+  like:
+    index: 20
+    material: EMERALD
+    name: "&a点赞"
+    lore:
+      - "&7给当前庇护所点赞。"
+    action: "command:ps like"
+  message:
+    index: 22
+    material: WRITABLE_BOOK
+    name: "&e留言"
+    lore:
+      - "&7打开留言输入框。"
+    action: "message:current"
+  home:
+    index: 24
+    material: COMPASS
+    name: "&b回家"
+    lore:
+      - "&7传送回自己的庇护所。"
+    action: "command:ps home"
+  back:
+    index: 40
+    material: ARROW
+    name: "&f我的控制器"
+    lore:
+      - "&7返回自己的管理面板。"
+    action: "menu:own_controller"
+  close:
+    index: 44
+    material: BARRIER
+    name: "&c关闭"
+    lore: []
+    action: "close"

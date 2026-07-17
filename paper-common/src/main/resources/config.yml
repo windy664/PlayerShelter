@@ -1,0 +1,57 @@
+# PlayerShelter 主配置
+
+language: zh_CN
+cross_server: false
+
+lifecycle:
+  inactive-delete-days: 30
+  inactive-grace-days: 7
+  inactive-sweep-minutes: 60
+  inactive-sweep-max-per-run: 5
+
+reset:
+  cooldown-hours: 12
+  max-per-day: 2
+
+migration:
+  saved-data:
+    # 迁移 global/world data/*.dat 时，如果目标 SavedData 已在内存缓存中，
+    # true = 先保存并驱逐对应缓存项，再写入磁盘；适合测试环境和在线通用迁移。
+    # false = 遇到已加载缓存就拒绝写入，适合最保守的生产模式。
+    evict-loaded-cache: true
+
+directory:
+  public-min-level: 3
+
+generation:
+  iris:
+    enabled: true
+    dimension: overworld
+
+world:
+  gamerules:
+    keep_inventory: true
+    # do_mob_spawning: true
+    # do_fire_tick: true
+    # mob_griefing: true
+
+landing:
+  platform-material: GLASS
+
+performance:
+  # 掉落物清理任务。每个等级的掉落物上限来自 levels.yml 的 levels.<等级>.limits.drops。
+  drop-cleanup:
+    check-interval-seconds: 60
+
+  # 庇护所世界的 Paper 距离参数。
+  # 这是当前主要优化：减少加载/模拟区块数量，不强制卸载世界或区块。
+  paper-world:
+    view-distance: 6
+    simulation-distance: 4
+
+  cache:
+    shelter-positive-ttl-seconds: 15
+    shelter-negative-ttl-seconds: 5
+
+limits:
+  enabled: true

@@ -1,0 +1,58 @@
+# 公开目录页。中间区域由代码填充公开庇护所条目。
+title: "&0公开目录 {sort} {page}/{max_page}"
+size: 54
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  summary:
+    index: 4
+    material: EMERALD
+    name: "&6公开目录"
+    lore:
+      - "&7排序: &f{sort}"
+      - "&7页码: &f{page}/{max_page}"
+      - "&7数量: &f{total}"
+      - ""
+      - "&8点击中间条目可拜访。"
+    action: ""
+  hot:
+    index: 1
+    material: BLAZE_POWDER
+    name: "&e热门"
+    lore:
+      - "&7按近期热度查看。"
+    action: "directory:hot:1"
+  likes:
+    index: 2
+    material: GOLD_INGOT
+    name: "&6点赞"
+    lore:
+      - "&7按总点赞查看。"
+    action: "directory:likes:1"
+  newest:
+    index: 6
+    material: CLOCK
+    name: "&b最新"
+    lore:
+      - "&7按创建时间查看。"
+    action: "directory:new:1"
+  random:
+    index: 7
+    material: ENDER_PEARL
+    name: "&d随机"
+    lore:
+      - "&7随机推荐公开庇护所。"
+    action: "directory:random:1"
+  back:
+    index: 49
+    material: ARROW
+    name: "&f返回"
+    lore:
+      - "&7回到社交页。"
+    action: "menu:social"
+  close:
+    index: 52
+    material: BARRIER
+    name: "&c关闭"
+    lore: []
+    action: "close"

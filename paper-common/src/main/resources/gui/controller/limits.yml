@@ -1,0 +1,62 @@
+# 限额监控页。显示当前已加载庄园世界里的实时数量；世界未加载时显示“未加载”。
+title: "&0限额监控"
+size: 54
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  summary:
+    index: 4
+    material: OBSERVER
+    name: "&6限额监控"
+    lore:
+      - "&7状态: &f{limits_state}"
+      - "&7等级: &f{level}/{max_level}"
+      - "&7世界: &f{world}"
+      - ""
+      - "&8统计范围为当前已加载区块。"
+    action: ""
+  mobs:
+    index: 20
+    material: ZOMBIE_HEAD
+    name: "&c生物"
+    lore:
+      - "&7当前: &f{mobs}"
+      - "&7上限: &f{mob_cap}"
+    action: ""
+  tiles:
+    index: 21
+    material: CHEST
+    name: "&e容器与机器"
+    lore:
+      - "&7当前: &f{tiles}"
+      - "&7上限: &f{tile_cap}"
+    action: ""
+  drops:
+    index: 23
+    material: HOPPER
+    name: "&b掉落物"
+    lore:
+      - "&7当前: &f{drops}"
+      - "&7上限: &f{drop_cap}"
+    action: ""
+  vehicles:
+    index: 24
+    material: MINECART
+    name: "&a载具"
+    lore:
+      - "&7当前: &f{vehicles}"
+      - "&7上限: &f{vehicle_cap}"
+    action: ""
+  back:
+    index: 49
+    material: ARROW
+    name: "&f返回"
+    lore:
+      - "&7回到控制器。"
+    action: "menu:shelter_controller"
+  close:
+    index: 53
+    material: BARRIER
+    name: "&c关闭"
+    lore: []
+    action: "close"

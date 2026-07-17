@@ -1,0 +1,37 @@
+# 标签搜索结果页。中间区域由代码填充公开庄园条目。
+title: "&0标签 #{tag} {page}/{max_page}"
+size: 54
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  summary:
+    index: 4
+    material: COMPASS
+    name: "&e标签搜索"
+    lore:
+      - "&7标签: &f#{tag}"
+      - "&7页码: &f{page}/{max_page}"
+      - "&7结果: &f{total}"
+      - ""
+      - "&8点击中间条目可拜访。"
+    action: ""
+  search_again:
+    index: 7
+    material: SPYGLASS
+    name: "&b重新搜索"
+    lore:
+      - "&7输入另一个标签。"
+    action: "tag-search"
+  back:
+    index: 49
+    material: ARROW
+    name: "&f返回"
+    lore:
+      - "&7回到标签页。"
+    action: "menu:tags"
+  close:
+    index: 52
+    material: BARRIER
+    name: "&c关闭"
+    lore: []
+    action: "close"

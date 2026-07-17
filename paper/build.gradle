@@ -1,0 +1,64 @@
+// 普通版载体：纯 Paper 插件。薄入口 PlayerShelterPaperPlugin + plugin.yml。
+// shadow 把 core + api + paper-common 的类与资源并进一个 jar；其余依赖运行期由服务端/插件/libraries 提供。
+
+plugins {
+    id 'com.gradleup.shadow'   // 版本见 settings.gradle pluginManagement
+}
+
+base {
+    archivesName = 'playershelter-paper'
+}
+
+dependencies {
+    implementation project(':paper-common')   // 传递带入 core + api
+    compileOnly 'io.papermc.paper:paper-api:26.2.build.48-alpha'
+}
+
+// plugin.yml 用到 ${mod_version} 等占位；版本串折进 git short hash + -dirty + 构建时间 → 启动 banner
+// 自报家门，杜绝"换了 jar 还跑旧的却不自知"。git 调用放执行期闭包（配置缓存只禁配置期跑外部进程）。
+processResources {
+    outputs.upToDateWhen { false }
+    def repoDir = rootProject.rootDir
+    def baseVer = project.version.toString()
+    def modId   = (rootProject.findProperty('mod_id') ?: 'playershelter').toString()
+    def modName = (rootProject.findProperty('mod_name') ?: 'PlayerShelter').toString()
+    filesMatching('paper-plugin.yml') {
+        def git = { String... cmd ->
+            try {
+                def p = new ProcessBuilder(cmd).directory(repoDir).redirectErrorStream(true).start()
+                def out = p.inputStream.getText('UTF-8').trim()
+                p.waitFor()
+                return p.exitValue() == 0 ? out : null
+            } catch (ignored) { return null }
+        }
+        def hash = git('git', 'rev-parse', '--short', 'HEAD')
+        def gitMeta
+        if (hash == null) {
+            gitMeta = 'nogit'
+        } else {
+            def status = git('git', 'status', '--porcelain')
+            gitMeta = hash + ((status != null && !status.isEmpty()) ? '-dirty' : '')
+        }
+        def fmt = new java.text.SimpleDateFormat('yyyy-MM-dd HH:mm')
+        fmt.timeZone = TimeZone.getTimeZone('Asia/Shanghai')
+        expand([
+                mod_version: "${baseVer}+${gitMeta} @ ${fmt.format(new Date())}".toString(),
+                mod_id     : modId,
+                mod_name   : modName
+        ])
+    }
+}
+
+shadowJar {
+    archiveClassifier = ''
+    // 只并入自己的兄弟模块，绝不 shade Paper/外部 API。
+    configurations = [project.configurations.runtimeClasspath]
+    dependencies {
+        include project(':core')
+        include project(':playershelter-api')
+        include project(':paper-common')
+    }
+}
+
+build.dependsOn shadowJar
+jar.enabled = false

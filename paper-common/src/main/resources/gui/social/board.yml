@@ -1,0 +1,56 @@
+# 留言板页。中间区域由代码填充访客留言。
+title: "&0留言板 {page}/{max_page}"
+size: 54
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  summary:
+    index: 4
+    material: OAK_SIGN
+    name: "&f留言板"
+    lore:
+      - "&7共 &f{total} &7条留言。"
+      - "&8点击留言可删除单条记录。"
+    action: ""
+  empty:
+    index: 22
+    material: LIGHT_GRAY_DYE
+    name: "&7暂无留言"
+    lore:
+      - "&8访客给你的庇护所留言后会显示在这里。"
+    action: ""
+  clear:
+    index: 8
+    material: BARRIER
+    name: "&c清空留言板"
+    lore:
+      - "&7删除全部留言。"
+      - "&8此操作立即执行。"
+    action: "board-clear:{page}"
+  previous:
+    index: 45
+    material: ARROW
+    name: "&f上一页"
+    lore:
+      - "&7第 &f{previous_page} &7页"
+    action: "board:{previous_page}"
+  next:
+    index: 53
+    material: ARROW
+    name: "&f下一页"
+    lore:
+      - "&7第 &f{next_page} &7页"
+    action: "board:{next_page}"
+  back:
+    index: 49
+    material: ARROW
+    name: "&f返回"
+    lore:
+      - "&7回到社交页。"
+    action: "menu:social"
+  close:
+    index: 52
+    material: BARRIER
+    name: "&c关闭"
+    lore: []
+    action: "close"

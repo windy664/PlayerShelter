@@ -1,0 +1,50 @@
+# 社交页。公开目录、留言板、标签等入口。
+title: "&0社交"
+size: 45
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  directory:
+    index: 12
+    material: EMERALD
+    name: "&6公开目录"
+    lore:
+      - "&7分页浏览热门公开庇护所。"
+      - "&8点击条目可直接拜访。"
+    action: "directory:hot:1"
+  board:
+    index: 14
+    material: OAK_SIGN
+    name: "&f留言板"
+    lore:
+      - "&7分页查看自己的访客留言。"
+      - "&8点击留言可删除单条记录。"
+    action: "board:1"
+  tags:
+    index: 22
+    material: NAME_TAG
+    name: "&b标签"
+    lore:
+      - "&7管理自己的庄园标签。"
+      - "&8标签用于公开目录搜索。"
+    action: "menu:tags"
+  inbox_todo:
+    index: 30
+    material: CHEST
+    name: "&8收件箱"
+    lore:
+      - "&7TODO: 后续接邮箱插件后再做。"
+      - "&8当前不会打开任何功能。"
+    action: ""
+  back:
+    index: 40
+    material: ARROW
+    name: "&f返回"
+    lore: []
+    action: "menu:shelter_controller"
+  close:
+    index: 44
+    material: BARRIER
+    name: "&c关闭"
+    lore: []
+    action: "close"

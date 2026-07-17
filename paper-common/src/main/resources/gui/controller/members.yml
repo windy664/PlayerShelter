@@ -1,0 +1,82 @@
+# 成员与访问页。需要输入玩家名的操作仍走命令。
+title: "&0成员与访问"
+size: 54
+pane-material: GRAY_STAINED_GLASS_PANE
+
+items:
+  summary:
+    index: 4
+    material: PLAYER_HEAD
+    name: "&d成员与访问"
+    lore:
+      - "&7访问模式: &f{visibility_label}"
+      - "&7管理员: &f{admins}/{admin_cap}"
+      - "&7共建: &f{trusted}/{trust_cap}"
+      - "&7访客名单: &f{access}"
+      - "&7黑名单: &f{denied}"
+      - ""
+      - "&8带玩家名的操作仍使用命令。"
+    action: "command:ps info"
+
+  private:
+    index: 19
+    material: IRON_DOOR
+    name: "&7设为私密"
+    lore:
+      - "&7只允许名单和成员进入。"
+    action: "command:ps visibility private"
+  friends:
+    index: 20
+    material: OAK_DOOR
+    name: "&b设为好友"
+    lore:
+      - "&7允许 access/trust/admin 进入。"
+    action: "command:ps visibility friends"
+  public:
+    index: 21
+    material: EMERALD_BLOCK
+    name: "&a设为公开"
+    lore:
+      - "&7上架公开目录。"
+    action: "command:ps visibility public"
+
+  trust_hint:
+    index: 28
+    material: OAK_AXE
+    name: "&a共建成员"
+    lore:
+      - "&7添加: &f/ps trust <玩家>"
+      - "&7移除: &f/ps untrust <玩家>"
+      - "&8共建成员可以建设庄园。"
+    action: ""
+  admin_hint:
+    index: 29
+    material: GOLDEN_HELMET
+    name: "&6管理员"
+    lore:
+      - "&7添加: &f/ps admin <玩家>"
+      - "&8管理员拥有更高管理权限。"
+    action: ""
+  access_hint:
+    index: 30
+    material: OAK_DOOR
+    name: "&b访客名单"
+    lore:
+      - "&7允许参观: &f/ps access <玩家>"
+      - "&7禁止进入: &f/ps deny <玩家>"
+      - "&7解除黑名单: &f/ps undeny <玩家>"
+    action: ""
+
+  back:
+    index: 49
+    material: ARROW
+    name: "&f返回"
+    lore:
+      - "&7回到控制器。"
+    action: "menu:shelter_controller"
+  close:
+    index: 53
+    material: BARRIER
+    name: "&c关闭"
+    lore: []
+    action: "close"

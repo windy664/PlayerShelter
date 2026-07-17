@@ -1,0 +1,27 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+        maven { url = 'https://maven.neoforged.net/releases' }
+    }
+    // 项目插件版本集中声明：各模块只写 id 'xxx' 不带版本（同 GuildShelter）。
+    plugins {
+        id 'net.neoforged.gradle.userdev' version '7.1.38'
+        id 'com.gradleup.shadow' version '9.0.0'   // 与 Gradle 9.x 兼容
+    }
+}
+
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+rootProject.name = 'playershelter'
+
+// 一人一世界（个人庇护所）。模块拆分同 GuildShelter：纯核心 + 共享 Paper 胶水 + 每载体一个薄入口。
+include 'playershelter-api' // 对外扩展 API（纯接口+DTO+事件，第三方附属 compileOnly）
+include 'core'             // domain · service · persistence（平台无关纯 Java）
+include 'paper-common'     // adapter/** · 接缝接口+Paper 默认实现 · 抽象引导（禁 net.neoforged）
+include 'paper'            // 普通版：纯 Paper 插件 jar
+if (file('neoforge_26_2/build.gradle').exists()) {
+    include 'neoforge_26_2' // 本地增强版：混合端(NeoForge 26.2)原生接缝 jar
+}
