@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 /**
  * ★ 生命周期核心（决策 #7 空闲卸载 / #27 有人不卸载 / #53 LRU 上限 / #54 无人不留加载区 / #6+#28 不活跃删除）。
@@ -30,6 +31,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * <p>所有卸载/删除都经 {@link WorldControl} 在主线程做；{@link #start()} 注册周期巡检。
  */
 public final class WorldLifecycleService {
+
+    private static final Logger log = Logger.getLogger("PlayerShelter");
 
     private final ShelterRepository repo;
     private final WorldControl world;
@@ -72,15 +75,21 @@ public final class WorldLifecycleService {
     /** 玩家进入某庇护所世界（监听 PlayerChangedWorld / join）：刷新活跃、解除待卸载、持久化 lastActive。 */
     public void markActive(Shelter shelter) {
         Instant now = clock.instant();
-        emptySince.remove(shelter.worldName());
+        boolean wasEmpty = emptySince.remove(shelter.worldName()) != null;
         lastActiveByWorld.put(shelter.worldName(), now);
         repo.save(shelter.withLastActive(now));
+        if (wasEmpty) {
+            log.info("[PlayerShelter] " + shelter.worldName() + " 不再空闲，取消待卸载");
+        }
     }
 
     /** 玩家离开某世界 / 世界可能变空时调（监听 quit / changedWorld 的离开侧）：若已空则起空闲计时。 */
     public void touchMaybeEmpty(String worldName) {
         if (world.isLoaded(worldName) && world.playerCount(worldName) == 0) {
-            emptySince.putIfAbsent(worldName, clock.instant());
+            Instant prev = emptySince.putIfAbsent(worldName, clock.instant());
+            if (prev == null) {
+                log.info("[PlayerShelter] " + worldName + " 变空，开始空闲计时 (idleUnloadMinutes=" + config.idleUnloadMinutes() + ")");
+            }
         } else {
             emptySince.remove(worldName);
         }
@@ -102,9 +111,14 @@ public final class WorldLifecycleService {
                     emptySince.remove(wn);
                     continue;
                 }
-                if (Duration.between(e.getValue(), now).getSeconds() >= idleSeconds) {
+                long idle = Duration.between(e.getValue(), now).getSeconds();
+                if (idle >= idleSeconds) {
+                    log.info("[PlayerShelter] " + wn + " 空闲 " + (idle / 60) + "min >= " + idleMinutes + "min → 空闲卸载");
                     if (world.unload(wn)) {
                         emptySince.remove(wn);
+                        log.info("[PlayerShelter] " + wn + " 空闲卸载成功");
+                    } else {
+                        log.warning("[PlayerShelter] " + wn + " 空闲卸载失败");
                     }
                 }
             }
@@ -123,6 +137,7 @@ public final class WorldLifecycleService {
         if (over <= 0) {
             return;
         }
+        log.info("[PlayerShelter] LRU 淘汰触发：已加载 " + loaded.size() + " > 上限 " + config.maxLoadedWorlds() + "，需淘汰 " + over + " 个");
         // 淘汰池 = 已加载里的【空】世界（有人世界永不淘汰，决策 #27）。
         List<String> loadedEmpty = new ArrayList<>();
         for (String wn : loaded) {
@@ -133,12 +148,18 @@ public final class WorldLifecycleService {
         // 按最近活跃从旧到新排，先淘汰最久未活跃的。
         loadedEmpty.sort(Comparator.comparing(
                 wn -> lastActiveByWorld.getOrDefault(wn, Instant.EPOCH)));
+        int evicted = 0;
         for (int i = 0; i < over && i < loadedEmpty.size(); i++) {
             String wn = loadedEmpty.get(i);
             if (world.unload(wn)) {
                 emptySince.remove(wn);
+                evicted++;
+                log.info("[PlayerShelter] LRU 淘汰成功: " + wn);
+            } else {
+                log.warning("[PlayerShelter] LRU 淘汰失败: " + wn);
             }
         }
+        log.info("[PlayerShelter] LRU 淘汰完成：淘汰 " + evicted + "/" + over + "，剩余加载 " + world.loadedShelterWorlds().size());
     }
 
     /** 不活跃治理裁决（决策 #6/#28），由登录监听器对该玩家的庇护所调用。 */
@@ -188,15 +209,19 @@ public final class WorldLifecycleService {
      */
     public boolean deleteInactive(Shelter s) {
         if (evaluateInactive(s, clock.instant()) != InactiveVerdict.SHOULD_DELETE) {
+            log.info("[PlayerShelter] deleteInactive(" + s.worldName() + "): 复核未通过，跳过");
             return false; // 复核：可能玩家刚登录重置了计时
         }
         if (world.playerCount(s.worldName()) > 0) {
+            log.info("[PlayerShelter] deleteInactive(" + s.worldName() + "): 内有玩家，跳过");
             return false; // 有人在里面，跳过
         }
+        log.info("[PlayerShelter] deleteInactive(" + s.worldName() + "): 删除不活跃庇护所");
         world.deleteWorld(s.worldName());
         repo.delete(s.owner());
         emptySince.remove(s.worldName());
         lastActiveByWorld.remove(s.worldName());
+        log.info("[PlayerShelter] deleteInactive(" + s.worldName() + "): 删除完成");
         return true;
     }
 }

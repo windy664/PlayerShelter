@@ -317,12 +317,18 @@ public final class PaperWorldControl implements WorldControl {
     public boolean unload(String worldName) {
         World world = Bukkit.getWorld(worldName);
         if (world == null) {
+            log.info("[PlayerShelter] unload(" + worldName + "): 世界不存在，跳过");
             return false;
         }
         if (!world.getPlayers().isEmpty()) {
+            log.info("[PlayerShelter] unload(" + worldName + "): 内有 " + world.getPlayers().size() + " 名玩家，跳过");
             return false; // 决策 #27 有人不卸载
         }
-        return Bukkit.unloadWorld(world, true); // save=true
+        int chunks = world.getLoadedChunks().length;
+        log.info("[PlayerShelter] unload(" + worldName + "): 开始卸载，loadedChunks~" + chunks);
+        boolean ok = Bukkit.unloadWorld(world, true); // save=true
+        log.info("[PlayerShelter] unload(" + worldName + "): " + (ok ? "成功" : "失败"));
+        return ok;
     }
 
     @Override
