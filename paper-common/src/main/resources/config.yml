@@ -39,6 +39,12 @@ landing:
   platform-material: GLASS
 
 performance:
+  optimize:
+    # 世界内零玩家多少分钟后 save+unload（决策 #7）。0 = 禁用空闲卸载，世界永远保持加载。
+    inactive-minutes: 0
+    # 同时加载的庇护所世界数上限，超出淘汰最久未活跃的空世界（决策 #53）。0 = 不限。
+    max-loaded-worlds: 0
+
   # 掉落物清理任务。每个等级的掉落物上限来自 levels.yml 的 levels.<等级>.limits.drops。
   drop-cleanup:
     check-interval-seconds: 60

@@ -27,7 +27,7 @@ levels:
       trust: 5
     limits:
       mobs: 60
-      tiles: 650
+      tiles: 1000
       drops: 100
       vehicles: 20
       machines:
@@ -43,7 +43,7 @@ levels:
       items: ["minecraft:oak_log:400", "minecraft:cobblestone:400", "minecraft:oak_planks:5"]
     limits:
       mobs: 65
-      tiles: 710
+      tiles: 1120
       drops: 110
       vehicles: 22
       machines:
@@ -59,7 +59,7 @@ levels:
       items: ["minecraft:oak_planks:20", "minecraft:stone_bricks:20", "minecraft:iron_ingot:5"]
     limits:
       mobs: 70
-      tiles: 790
+      tiles: 1240
       drops: 120
       vehicles: 25
       machines:
@@ -75,7 +75,7 @@ levels:
       items: ["minecraft:oak_planks:20", "minecraft:stone_bricks:20", "minecraft:white_concrete:5", "minecraft:iron_nugget:5"]
     limits:
       mobs: 75
-      tiles: 860
+      tiles: 1360
       drops: 130
       vehicles: 27
       machines:
@@ -91,7 +91,7 @@ levels:
       items: ["minecraft:granite:10", "minecraft:stone_bricks:30", "minecraft:white_concrete:5", "minecraft:iron_ingot:5"]
     limits:
       mobs: 80
-      tiles: 930
+      tiles: 1480
       drops: 140
       vehicles: 30
       machines:
@@ -107,7 +107,7 @@ levels:
       items: ["minecraft:granite:15", "minecraft:stone_bricks:30", "minecraft:white_concrete:10", "minecraft:iron_ingot:10"]
     limits:
       mobs: 86
-      tiles: 1000
+      tiles: 1600
       drops: 156
       vehicles: 33
       machines:
@@ -123,7 +123,7 @@ levels:
       items: ["minecraft:glass:15", "minecraft:stone_bricks:30", "minecraft:white_concrete:15", "minecraft:iron_ingot:10"]
     limits:
       mobs: 92
-      tiles: 1070
+      tiles: 1720
       drops: 172
       vehicles: 36
       machines:
@@ -139,7 +139,7 @@ levels:
       items: ["minecraft:glass:15", "minecraft:stone_bricks:30", "minecraft:white_concrete:15", "minecraft:copper_ingot:10"]
     limits:
       mobs: 98
-      tiles: 1140
+      tiles: 1840
       drops: 188
       vehicles: 39
       machines:
@@ -155,7 +155,7 @@ levels:
       items: ["minecraft:quartz:25", "minecraft:leather:15", "minecraft:white_concrete:20", "minecraft:copper_ingot:15"]
     limits:
       mobs: 104
-      tiles: 1210
+      tiles: 1960
       drops: 204
       vehicles: 42
       machines:
@@ -171,7 +171,7 @@ levels:
       items: ["minecraft:white_concrete:30", "minecraft:iron_bars:20", "minecraft:string:15", "minecraft:slime_ball:15"]
     limits:
       mobs: 110
-      tiles: 1280
+      tiles: 2080
       drops: 220
       vehicles: 45
       machines:
@@ -194,7 +194,7 @@ levels:
       items: ["minecraft:white_concrete:30", "minecraft:glass:20", "minecraft:redstone:15", "minecraft:honeycomb:15"]
     limits:
       mobs: 115
-      tiles: 1365
+      tiles: 2230
       drops: 240
       vehicles: 48
       machines:
@@ -210,7 +210,7 @@ levels:
       items: ["minecraft:white_concrete:30", "minecraft:leather:20", "minecraft:quartz:15", "minecraft:slime_ball:15"]
     limits:
       mobs: 120
-      tiles: 1450
+      tiles: 2380
       drops: 260
       vehicles: 51
       machines:
@@ -226,7 +226,7 @@ levels:
       items: ["minecraft:white_concrete:30", "minecraft:diamond:20", "minecraft:string:15", "minecraft:brick:15"]
     limits:
       mobs: 125
-      tiles: 1535
+      tiles: 2530
       drops: 280
       vehicles: 54
       machines:
@@ -242,7 +242,7 @@ levels:
       items: ["minecraft:white_concrete:30", "minecraft:emerald:20", "minecraft:string:20", "minecraft:brick:20"]
     limits:
       mobs: 130
-      tiles: 1620
+      tiles: 2680
       drops: 300
       vehicles: 57
       machines:
@@ -258,7 +258,7 @@ levels:
       items: ["minecraft:white_concrete:30", "minecraft:redstone:20", "minecraft:leather:20", "minecraft:copper_ingot:20"]
     limits:
       mobs: 135
-      tiles: 1705
+      tiles: 2830
       drops: 320
       vehicles: 60
       machines:
@@ -280,7 +280,7 @@ levels:
       items: ["minecraft:white_concrete:30", "minecraft:diamond:20", "minecraft:leather:20", "minecraft:deepslate_tiles:20"]
     limits:
       mobs: 138
-      tiles: 1790
+      tiles: 2980
       drops: 340
       vehicles: 63
       machines:
@@ -296,7 +296,7 @@ levels:
       items: ["minecraft:white_concrete:30", "minecraft:redstone:20", "minecraft:string:20", "minecraft:brick:20"]
     limits:
       mobs: 141
-      tiles: 1875
+      tiles: 3130
       drops: 360
       vehicles: 66
       machines:
@@ -312,7 +312,7 @@ levels:
       items: ["minecraft:white_concrete:30", "minecraft:redstone:20", "minecraft:string:20", "minecraft:brick:20"]
     limits:
       mobs: 144
-      tiles: 1960
+      tiles: 3280
       drops: 380
       vehicles: 69
       machines:
@@ -328,7 +328,7 @@ levels:
       items: ["minecraft:copper_ingot:20", "minecraft:iron_ingot:20", "minecraft:white_concrete:30", "minecraft:leather:20"]
     limits:
       mobs: 147
-      tiles: 2045
+      tiles: 3430
       drops: 400
       vehicles: 72
       machines:
@@ -344,7 +344,7 @@ levels:
       items: ["minecraft:white_concrete:30", "minecraft:netherite_scrap:20", "minecraft:leather:20", "minecraft:iron_ingot:20"]
     limits:
       mobs: 150
-      tiles: 2130
+      tiles: 3580
       drops: 420
       vehicles: 75
       machines:

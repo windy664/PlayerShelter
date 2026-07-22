@@ -91,24 +91,29 @@ public final class WorldLifecycleService {
      */
     void tick() {
         Instant now = clock.instant();
-        long idleSeconds = config.idleUnloadMinutes() * 60L;
+        long idleMinutes = config.idleUnloadMinutes();
 
-        // 1) 空闲卸载（决策 #7）
-        for (Map.Entry<String, Instant> e : new ArrayList<>(emptySince.entrySet())) {
-            String wn = e.getKey();
-            if (!world.isLoaded(wn) || world.playerCount(wn) > 0) {
-                emptySince.remove(wn);
-                continue;
-            }
-            if (Duration.between(e.getValue(), now).getSeconds() >= idleSeconds) {
-                if (world.unload(wn)) {
+        // 1) 空闲卸载（决策 #7）；idleUnloadMinutes <= 0 表示禁用。
+        if (idleMinutes > 0) {
+            long idleSeconds = idleMinutes * 60L;
+            for (Map.Entry<String, Instant> e : new ArrayList<>(emptySince.entrySet())) {
+                String wn = e.getKey();
+                if (!world.isLoaded(wn) || world.playerCount(wn) > 0) {
                     emptySince.remove(wn);
+                    continue;
+                }
+                if (Duration.between(e.getValue(), now).getSeconds() >= idleSeconds) {
+                    if (world.unload(wn)) {
+                        emptySince.remove(wn);
+                    }
                 }
             }
         }
 
-        // 2) LRU 上限淘汰（决策 #53）：超额则淘汰最久未活跃的【空】世界。
-        enforceLruCap();
+        // 2) LRU 上限淘汰（决策 #53）：maxLoadedWorlds <= 0 表示不限。
+        if (config.maxLoadedWorlds() > 0) {
+            enforceLruCap();
+        }
     }
 
     private void enforceLruCap() {
