@@ -1,4 +1,14 @@
+<div align="center">
+
+<img src="assets/banner.svg" alt="PlayerShelter" width="100%">
+
+</div>
+
 # PlayerShelter
+
+![Platform](https://img.shields.io/badge/Platform-Paper%20%2F%20NeoForge-62bda8?style=flat-square&logo=minecraft&logoColor=white)
+![Minecraft](https://img.shields.io/badge/MC-1.21%2B%20%2F%2026.2-8a9a5b?style=flat-square)
+![Optional](https://img.shields.io/badge/Optional-Vault%20·%20PAPI%20·%20Iris-e2b90f?style=flat-square)
 
 一人一世界的个人庇护所插件。每个玩家拥有一个独立 MC 世界，等级越高，边界越大。
 
