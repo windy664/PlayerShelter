@@ -78,6 +78,32 @@ class StorageIntegrationTest {
         assertTrue(repo.all().isEmpty());
     }
 
+    /**
+     * 模拟「表/索引/列都已存在，但 ps_schema_history 是空的」——即上次迁移中途失败后遗留的状态
+     * （MySQL 的 DDL 隐式提交、回滚不了，崩溃后就会落到这个状态）。迁移必须能自己重放接上：
+     * 索引/列的存在性靠 Java 侧查元数据，而不是各后端不一致的方言语法。
+     */
+    @Test
+    void migrationRecoversFromPartiallyAppliedSchema() throws Exception {
+        try (var c = db.connection(); var st = c.createStatement()) {
+            st.execute("DELETE FROM ps_schema_history");
+        }
+        // 全量重放 v1~v8 不抛异常（索引/列已存在时自行跳过）。
+        new Migrations(db, log).migrate();
+        try (var c = db.connection();
+             var rs = c.createStatement().executeQuery("SELECT MAX(version) FROM ps_schema_history")) {
+            assertTrue(rs.next());
+            assertEquals(8, rs.getInt(1));
+        }
+        // 索引不能被重复建。
+        try (var c = db.connection();
+             var rs = c.createStatement().executeQuery(
+                     "SELECT COUNT(*) FROM sqlite_master WHERE type = 'index' AND name = 'idx_ps_shelter_world'")) {
+            assertTrue(rs.next());
+            assertEquals(1, rs.getInt(1));
+        }
+    }
+
     @Test
     void migrationUpgradesV5DatabaseToV6() throws Exception {
         File legacyFile = File.createTempFile("ps-v5", ".db");

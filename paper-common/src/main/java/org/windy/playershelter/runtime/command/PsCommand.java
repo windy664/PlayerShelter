@@ -212,7 +212,8 @@ public final class PsCommand implements TabExecutor {
             return;
         }
         Location loc = p.getLocation();
-        p.getWorld().setSpawnLocation(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
+        // 用 Location 重载保留朝向：回家（/ps home）落点会沿用这里的 yaw/pitch。
+        p.getWorld().setSpawnLocation(loc);
         Messages.okKey(p, "setspawn.success", "已把庇护所出生点设到你脚下。");
     }
 

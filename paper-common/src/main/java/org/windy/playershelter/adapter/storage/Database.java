@@ -35,8 +35,11 @@ public final class Database implements AutoCloseable {
     /** MySQL：大服/跨服用（决策 #49/#59）。 */
     public static Database mysql(String host, int port, String db, String user, String pass) {
         HikariConfig hc = new HikariConfig();
+        // characterEncoding 必须写 Java 字符集名 UTF-8（Connector/J 把它映射到服务端 utf8mb4）；
+        // 写 utf8mb4 会抛 Unsupported character encoding。旧值 utf8 在服务端是 utf8mb3（最多 3 字节），
+        // 玩家昵称/留言里的 emoji 会写不进去（Incorrect string value）。建表侧已同步钉 utf8mb4（见 Migrations）。
         hc.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + db
-                + "?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
+                + "?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
         hc.setUsername(user);
         hc.setPassword(pass);
         hc.setMaximumPoolSize(10);

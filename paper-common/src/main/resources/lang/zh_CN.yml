@@ -266,35 +266,6 @@ messages:
     self: "&#ff6b6b你不能给自己留言，输入 /ps board 可以直接查看。"
     success: "留言成功！已发送至 &#ffda75{player} &f的留言板。"
 
-  psgs:
-    migration:
-      already-running: "已有迁移正在执行，请等待当前迁移完成。"
-      background: "迁移已进入后台执行，进度会显示在 bossbar 和后台日志中。"
-      start-detail: "开始迁移"
-      finalize-detail: "提交迁移记录"
-      copy-exception: "复制失败：{error}"
-      copy-failed-title: "复制失败"
-      copy-failed: "复制失败：源/目标世界不存在、目标载体复制能力不可用，或高度范围不兼容。"
-      start-failed-title: "迁移启动失败"
-      gs-record-failed-title: "GS 记录提交失败"
-      gs-record-failed: "方块已复制，但 GS 庄园记录提交失败。请先不要重复执行，手动检查目标区域。"
-      finish-failed-title: "迁移收尾失败"
-      finish-failed: "迁移收尾失败：{error}"
-      success: "迁移复制完成。源区域未清空。"
-      bossbar:
-        prepare: "[PSGS] 迁移准备中 {id}"
-        progress: "[PSGS] {phase} {percent}{progress}"
-        success: "[PSGS] 迁移完成"
-        failed: "[PSGS] {reason}"
-      phase:
-        start: "准备迁移"
-        resolve: "检查世界"
-        blocks: "复制区块"
-        entities: "迁移实体"
-        saved-data: "迁移数据"
-        finalize: "提交记录"
-        default: "迁移中"
-
   help:
     header: "&#8ee5ee❖ PlayerShelter 庇护所帮助 ❖"
     create: "&#8ee5ee/ps create <natural|flat|void> &f创建你的庇护所"
@@ -418,6 +389,34 @@ messages:
       confirm: "&#8ee5ee/psgs confirm &f- 确认执行预检的迁移操作"
       cancel: "&#8ee5ee/psgs cancel &f- 取消当前待确认的操作"
       reload: "&#8ee5ee/psgs reload &f- 重载 GuildShelter API 数据"
+
+    migration:
+      already-running: "已有迁移正在执行，请等待当前迁移完成。"
+      background: "迁移已进入后台执行，进度会显示在 bossbar 和后台日志中。"
+      start-detail: "开始迁移"
+      finalize-detail: "提交迁移记录"
+      copy-exception: "复制失败：{error}"
+      copy-failed-title: "复制失败"
+      copy-failed: "复制失败：源/目标世界不存在、目标载体复制能力不可用，或高度范围不兼容。"
+      start-failed-title: "迁移启动失败"
+      gs-record-failed-title: "GS 记录提交失败"
+      gs-record-failed: "方块已复制，但 GS 庄园记录提交失败。请先不要重复执行，手动检查目标区域。"
+      finish-failed-title: "迁移收尾失败"
+      finish-failed: "迁移收尾失败：{error}"
+      success: "迁移复制完成。源区域未清空。"
+      bossbar:
+        prepare: "[PSGS] 迁移准备中 {id}"
+        progress: "[PSGS] {phase} {percent}{progress}"
+        success: "[PSGS] 迁移完成"
+        failed: "[PSGS] {reason}"
+      phase:
+        start: "准备迁移"
+        resolve: "检查世界"
+        blocks: "复制区块"
+        entities: "迁移实体"
+        saved-data: "迁移数据"
+        finalize: "提交记录"
+        default: "迁移中"
 
   router:
     cross-server: "正在将你跨服传送到目标服务器…"
